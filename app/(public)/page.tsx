@@ -1,12 +1,9 @@
-"use client";
 
-import { ThemeToggle } from "@/components/theme-toggle";
+
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+
 
 import {
   Users,
@@ -50,19 +47,8 @@ const features: featureProps[] = [
 ];
 
 export default function Home() {
-  const router = useRouter();
-  const { data: session } = authClient.useSession();
 
-  async function signOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/");
-          toast.success("Signed out successfully");
-        },
-      },
-    });
-  }
+
   return (
     <>
       <section className="relative py-20">
@@ -98,7 +84,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
         {features.map((feature, index) => (
           <Card key={index} className="hover:shadow-lg transition-shadow">
             <CardHeader className="text-4xl mb-4">{feature.icon}</CardHeader>
@@ -113,15 +99,3 @@ export default function Home() {
   );
 }
 
-// <div className="p-24">
-//   <h1 className="text-2xl font-bold text-rose-500">Hello World</h1>
-//   <ThemeToggle />
-//   {session ? (
-//     <div>
-//       <p>{session.user.name}</p>
-//       <Button onClick={signOut}>Logout</Button>
-//     </div>
-//   ) : (
-//     <Button>Login</Button>
-//   )}
-// </div>
