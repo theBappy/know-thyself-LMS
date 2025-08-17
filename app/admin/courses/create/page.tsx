@@ -8,7 +8,7 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import { ArrowLeft, SparkleIcon } from "lucide-react";
+import { ArrowLeft, PlusIcon, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import {
   courseLevels,
   courseSchema,
   CourseSchemaType,
+  courseStatus,
 } from "@/lib/zodSchema";
 import {
   Form,
@@ -201,7 +202,7 @@ export default function CourseCreationPage() {
                     </FormItem>
                   )}
                 />
-                 <FormField
+                <FormField
                   control={form.control}
                   name="level"
                   render={({ field }) => (
@@ -229,32 +230,66 @@ export default function CourseCreationPage() {
                   )}
                 />
                 <FormField
-                control={form.control}
-                name="duration"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Duration (hours)</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="Duration" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  control={form.control}
+                  name="duration"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Duration (hours)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="Duration"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Price ($)</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="Price" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
                 control={form.control}
-                name="price"
+                name="status"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Price ($)</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="pr" {...field} />
-                    </FormControl>
+                    <FormLabel>Status</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select Status" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {courseStatus.map((status) => (
+                          <SelectItem key={status} value={status}>
+                            {status}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              </div>
+              <Button type="submit">
+                Create Course <PlusIcon className="ml-1" size={16} />
+              </Button>
             </form>
           </Form>
         </CardContent>
