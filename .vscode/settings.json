@@ -3,9 +3,12 @@
         "Arcjet",
         "cmdk",
         "embla",
+        "presigner",
         "shadcn",
         "sonner",
+        "tabler",
         "turbopack",
+        "uuidv",
         "vaul"
     ]
 }
