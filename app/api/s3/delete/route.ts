@@ -3,8 +3,7 @@ import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { env } from "@/lib/env";
 import { S3 } from "@/lib/S3Client";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet/arcjet";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { requireAdmin } from "@/app/data/admin/require-admin";
 
 const aj = arcjet
   .withRule(
@@ -22,9 +21,7 @@ const aj = arcjet
   );
 
 export async function DELETE(request: Request) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await requireAdmin();
 
   try {
     const decision = await aj.protect(request, {
