@@ -12,7 +12,7 @@ import {
 } from "./render-state";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
-import { Key } from "lucide-react";
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 interface UploaderState {
   id: string | null;
@@ -31,8 +31,8 @@ interface iAppProps {
   onChange?: (value: string) => void;
 }
 
-
-export function Uploader({onChange, value}: iAppProps) {
+export function Uploader({ onChange, value }: iAppProps) {
+  const fileUrl = useConstructUrl(value || "");
   const [fileState, setFileState] = useState<UploaderState>({
     error: false,
     file: null,
@@ -42,6 +42,7 @@ export function Uploader({onChange, value}: iAppProps) {
     isDeleting: false,
     fileType: "image",
     key: value,
+    objectUrl: fileUrl,
   });
 
   async function uploadFile(file: File) {
@@ -190,10 +191,10 @@ export function Uploader({onChange, value}: iAppProps) {
       setFileState(() => ({
         file: null,
         uploading: false,
-        progress: 0, 
+        progress: 0,
         objectUrl: undefined,
         error: false,
-        fileType: "image", 
+        fileType: "image",
         id: null,
         isDeleting: false,
       }));
@@ -203,7 +204,7 @@ export function Uploader({onChange, value}: iAppProps) {
       toast.error("Error removing file. Please try again");
       setFileState((prev) => ({
         ...prev,
-        isDeleting: false, 
+        isDeleting: false,
         error: true,
       }));
     }
