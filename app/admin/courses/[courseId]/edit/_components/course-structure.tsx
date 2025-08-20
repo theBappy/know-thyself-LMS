@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  CardDescription,
 } from "@/components/ui/card";
 import {
   DndContext,
@@ -35,7 +34,6 @@ import {
 import {
   ChevronDown,
   ChevronRight,
-  ChevronUp,
   FileTextIcon,
   GripVertical,
   GripVerticalIcon,
@@ -44,6 +42,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
+import { reorderLessons } from "../actions";
 
 interface Props {
   data: AdminCourseSingularType;
@@ -200,17 +199,32 @@ export function CourseStructure({ data }: Props) {
         lessons: updatedLessonForState,
       };
 
-      const previousItems = [...items]
+      const previousItems = [...items];
 
-      setItems(newItems)
+      setItems(newItems);
 
-
-      if(courseId){
+      if (courseId) {
         const lessonsToUpdate = updatedLessonForState.map((lesson) => ({
           id: lesson.id,
           position: lesson.order,
-        }))
+        }));
+
+        const reorderLessonsPromise = () =>
+          reorderLessons(chapterId, lessonsToUpdate, courseId);
+
+        toast.promise(reorderLessonsPromise(), {
+          loading: "Reordering Lessons...",
+          success: (result) => {
+            if (result.status === "success") return result.message;
+            throw new Error(result.message);
+          },
+          error: () => {
+            setItems(previousItems);
+            return "Failed to reorder lessons";
+          },
+        });
       }
+      return;
     }
   }
 
