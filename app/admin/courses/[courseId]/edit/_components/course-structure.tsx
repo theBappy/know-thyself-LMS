@@ -1,14 +1,10 @@
 "use client";
 
-import { ReactNode, useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
+import { ReactNode, useEffect, useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   DndContext,
+  DragEndEvent,
   DraggableSyntheticListeners,
   KeyboardSensor,
   PointerSensor,
@@ -42,7 +38,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
-import { reorderLessons } from "../actions";
+import { reorderChapters, reorderLessons } from "../actions";
 
 interface Props {
   data: AdminCourseSingularType;
@@ -73,7 +69,25 @@ export function CourseStructure({ data }: Props) {
     })) || [];
 
   const [items, setItems] = useState(initialItems);
+
   console.log(items);
+
+  useEffect(() => {
+    setItems((prevItems) => {
+      const updatedItems = data.chapter.map((chapter) => ({
+        id: chapter.id,
+        title: chapter.title,
+        order: chapter.position,
+        isOpen: prevItems.find((item) => item.id === chapter.id)?.isOpen ?? true, 
+        lessons: chapter.lessons.map((lesson) => ({
+          id: lesson.id,
+          title: lesson.title,
+          order: lesson.position,
+        })),
+      })) || [];
+      return updatedItems;
+    });
+  }, [data]);
 
   function SortableItem({ children, id, className, data }: SortableItemProps) {
     const {
@@ -102,7 +116,7 @@ export function CourseStructure({ data }: Props) {
     );
   }
 
-  function handleDragEnd(event) {
+  function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
     if (!over || active.id === over.id) {
@@ -144,6 +158,28 @@ export function CourseStructure({ data }: Props) {
       );
       const previousItems = [...items];
       setItems(updatedChapterForState);
+
+      if (courseId) {
+        const chaptersToUpdate = updatedChapterForState.map((chapter) => ({
+          id: chapter.id,
+          position: chapter.order,
+        }));
+        const reorderPromise = () =>
+          reorderChapters(courseId, chaptersToUpdate);
+
+        toast.promise(reorderPromise(), {
+          loading: "Reordering chapters...",
+          success: (result) => {
+            if (result.status === "success") return result.message;
+            throw new Error(result.message);
+          },
+          error: () => {
+            setItems(previousItems);
+            return "Failed to reorder chapters.";
+          },
+        });
+      }
+      return;
     }
 
     if (activeType === "lesson" && overType === "lesson") {
