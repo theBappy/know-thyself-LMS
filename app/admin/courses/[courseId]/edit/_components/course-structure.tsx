@@ -39,6 +39,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
 import { reorderChapters, reorderLessons } from "../actions";
+import { NewChapterModal } from "./new-chapter-modal";
+import { NewLessonModal } from "./new-lesson-modal";
+import { DeleteLesson } from "./delete-lesson";
 
 interface Props {
   data: AdminCourseSingularType;
@@ -74,17 +77,19 @@ export function CourseStructure({ data }: Props) {
 
   useEffect(() => {
     setItems((prevItems) => {
-      const updatedItems = data.chapter.map((chapter) => ({
-        id: chapter.id,
-        title: chapter.title,
-        order: chapter.position,
-        isOpen: prevItems.find((item) => item.id === chapter.id)?.isOpen ?? true, 
-        lessons: chapter.lessons.map((lesson) => ({
-          id: lesson.id,
-          title: lesson.title,
-          order: lesson.position,
-        })),
-      })) || [];
+      const updatedItems =
+        data.chapter.map((chapter) => ({
+          id: chapter.id,
+          title: chapter.title,
+          order: chapter.position,
+          isOpen:
+            prevItems.find((item) => item.id === chapter.id)?.isOpen ?? true,
+          lessons: chapter.lessons.map((lesson) => ({
+            id: lesson.id,
+            title: lesson.title,
+            order: lesson.position,
+          })),
+        })) || [];
       return updatedItems;
     });
   }, [data]);
@@ -291,6 +296,7 @@ export function CourseStructure({ data }: Props) {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between border-b border-border">
             <CardTitle>Chapters</CardTitle>
+            <NewChapterModal courseId={data.id} />
           </CardHeader>
           <CardContent className="space-y-8">
             <SortableContext
@@ -364,18 +370,21 @@ export function CourseStructure({ data }: Props) {
                                           {lesson.title}
                                         </Link>
                                       </div>
-                                      <Button variant="outline" size="icon">
-                                        <Trash2 className="size-4" />
-                                      </Button>
+                                      <DeleteLesson
+                                        chapterId={item.id}
+                                        courseId={data.id}
+                                        lessonId={lesson.id}
+                                      />
                                     </div>
                                   )}
                                 </SortableItem>
                               ))}
                             </SortableContext>
                             <div className="p-2">
-                              <Button variant="outline" className="w-full">
-                                Create New Lesson
-                              </Button>
+                              <NewLessonModal
+                                courseId={data.id}
+                                chapterId={item.id}
+                              />
                             </div>
                           </div>
                         </CollapsibleContent>
