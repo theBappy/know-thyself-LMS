@@ -33,7 +33,6 @@ import {
   FileTextIcon,
   GripVertical,
   GripVerticalIcon,
-  Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -42,6 +41,7 @@ import { reorderChapters, reorderLessons } from "../actions";
 import { NewChapterModal } from "./new-chapter-modal";
 import { NewLessonModal } from "./new-lesson-modal";
 import { DeleteLesson } from "./delete-lesson";
+import { DeleteChapter } from "./delete-chapter";
 
 interface Props {
   data: AdminCourseSingularType;
@@ -337,9 +337,10 @@ export function CourseStructure({ data }: Props) {
                               {item.title}
                             </p>
                           </div>
-                          <Button size="icon" variant="outline">
-                            <Trash2 className="size-4" />
-                          </Button>
+                          <DeleteChapter
+                            chapterId={item.id}
+                            courseId={data.id}
+                          />
                         </div>
                         <CollapsibleContent>
                           <div className="p-1">
