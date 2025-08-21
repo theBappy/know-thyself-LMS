@@ -4,6 +4,9 @@ import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 
 export async function adminGetCourse(id: string) {
+  // never ever have a fake delay in production when deploy, i should remove it 
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   await requireAdmin();
 
   const data = await prisma.course.findUnique({
