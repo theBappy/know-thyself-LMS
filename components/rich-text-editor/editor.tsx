@@ -7,16 +7,20 @@ import TextAlign from "@tiptap/extension-text-align";
 import Image from "@tiptap/extension-image";
 
 export function RichTextEditor({ field }: { field: any }) {
+  const parseContent = () => {
+    if (!field.value) return "<p>Hello World...</p>";
+    try {
+      return JSON.parse(field.value);
+    } catch {
+      return field.value; // fallback to plain text
+    }
+  };
+
   const editor = useEditor({
     extensions: [
       StarterKit,
-      TextAlign.configure({
-        types: ["heading", "paragraph"],
-      }),
-      Image.configure({
-        inline: true,
-        allowBase64: true,
-      }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      Image.configure({ inline: true, allowBase64: true }),
     ],
     editorProps: {
       attributes: {
@@ -27,7 +31,7 @@ export function RichTextEditor({ field }: { field: any }) {
     onUpdate: ({ editor }) => {
       field.onChange(JSON.stringify(editor.getJSON()));
     },
-    content: field.value ? JSON.parse(field.value) : "<p>Hello World...</p>",
+    content: parseContent(),
     immediatelyRender: false,
   });
 
