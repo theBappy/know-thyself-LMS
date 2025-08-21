@@ -20,11 +20,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { lessonSchema } from "@/lib/zodSchema";
+import { tryCatch } from "@/hooks/try-catch";
+import { lessonSchema, LessonSchemaType } from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { updateLesson } from "../actions";
+import { toast } from "sonner";
+import { useTransition } from "react";
 
 interface Props {
   data: AdminLessonType;
@@ -42,6 +46,7 @@ type LessonFormValues = {
 };
 
 export function LessonForm({ chapterId, data, courseId }: Props) {
+  const [pending, startTransition] = useTransition();
   const form = useForm<LessonFormValues>({
     resolver: zodResolver(lessonSchema),
     defaultValues: {
@@ -53,6 +58,25 @@ export function LessonForm({ chapterId, data, courseId }: Props) {
       thumbnailKey: data.thumbnailKey ?? undefined,
     },
   });
+
+  function onSubmit(values: LessonSchemaType) {
+    startTransition(async () => {
+      const { data: result, error } = await tryCatch(
+        updateLesson(values, data.id)
+      );
+
+      if (error) {
+        toast.error("An unexpected error occurred. Please try again");
+        return;
+      }
+
+      if (result.status === "success") {
+        toast.success(result.message);
+      } else if (result.status === "error") {
+        toast.error(result.message);
+      }
+    });
+  }
 
   return (
     <div className="">
@@ -76,7 +100,7 @@ export function LessonForm({ chapterId, data, courseId }: Props) {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
                 name="name"
@@ -110,7 +134,11 @@ export function LessonForm({ chapterId, data, courseId }: Props) {
                   <FormItem>
                     <FormLabel>Thumbnail Image</FormLabel>
                     <FormControl>
-                      <Uploader fileTypeAccepted="image" onChange={field.onChange} value={field.value} />
+                      <Uploader
+                        fileTypeAccepted="image"
+                        onChange={field.onChange}
+                        value={field.value}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -123,13 +151,19 @@ export function LessonForm({ chapterId, data, courseId }: Props) {
                   <FormItem>
                     <FormLabel>Video File</FormLabel>
                     <FormControl>
-                      <Uploader fileTypeAccepted="video" onChange={field.onChange} value={field.value} />
+                      <Uploader
+                        fileTypeAccepted="video"
+                        onChange={field.onChange}
+                        value={field.value}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Save Lesson</Button>
+              <Button disabled={pending} type="submit">
+                {pending ? "Saving..." : "Save Lesson"}
+              </Button>
             </form>
           </Form>
         </CardContent>
