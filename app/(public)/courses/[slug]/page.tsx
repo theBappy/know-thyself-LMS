@@ -20,6 +20,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { enrollInCourseAction } from "./actions";
 
 type Params = Promise<{
   slug: string;
@@ -256,7 +257,14 @@ export default async function SlugPage({ params }: { params: Params }) {
                   </li>
                 </ul>
               </div>
-              <Button className="w-full">Enroll Now</Button>
+              <form
+                action={async () => {
+                  "use server";
+                  enrollInCourseAction(course.id);
+                }}
+              >
+                <Button className="w-full">Enroll Now</Button>
+              </form>
               <p className="mt-3 text-center text-xs muted-foreground">
                 30-day money-back guarantee
               </p>
