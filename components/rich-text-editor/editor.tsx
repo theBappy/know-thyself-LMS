@@ -2,8 +2,8 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Menubar } from "./menu-bar";
 import TextAlign from "@tiptap/extension-text-align";
+import { Menubar } from "./menu-bar";
 import Image from "@tiptap/extension-image";
 
 export function RichTextEditor({ field }: { field: any }) {
