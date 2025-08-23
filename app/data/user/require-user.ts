@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function requireUser() {
-  const session = await auth.session.getSession({
+  const session = await auth.api.getSession({
     headers: await headers(),
   });
 
