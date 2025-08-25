@@ -120,7 +120,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
           xhr.setRequestHeader("Content-Type", file.type);
           xhr.send(file);
         });
-      } catch () {
+      } catch{
         toast.error("Something went wrong");
 
         setFileState((prev) => ({
