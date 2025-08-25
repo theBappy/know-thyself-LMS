@@ -84,7 +84,7 @@ cp .env.example .env
 # Add keys for Next.js, S3, Prisma, Better-Auth, Stripe
 
 # Run locally
-pnpm dev
+pnpm run dev
 ```
 
 ---
