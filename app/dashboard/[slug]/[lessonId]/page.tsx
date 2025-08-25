@@ -11,7 +11,6 @@ export default async function LessonContentPage({
   params: Params;
 }) {
   const { lessonId } = await params;
-  const data = await getLessonContent(lessonId);
 
   return (
     <Suspense fallback={<LessonSkeleton />}>

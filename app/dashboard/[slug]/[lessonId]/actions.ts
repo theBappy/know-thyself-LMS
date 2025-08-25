@@ -35,7 +35,7 @@ export async function markLessonComplete(
       status: "success",
       message: "Progress updated successfully",
     };
-  } catch () {
+  } catch {
     return {
       status: "error",
       message: "Failed to mark lesson as completed",
