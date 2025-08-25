@@ -40,10 +40,14 @@ import {
 import { RichTextEditor } from "@/components/rich-text-editor/editor";
 import { Uploader } from "@/components/file-uploader/uploader";
 import { useTransition } from "react";
-
+import { tryCatch } from "@/hooks/try-catch";
+import { CreateCourse } from "./actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CourseCreationPage() {
-  const [pending] = useTransition();
+  const [pending, startTransition] = useTransition();
+  const router = useRouter();
   // 1. Define form.
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
@@ -62,6 +66,25 @@ export default function CourseCreationPage() {
   });
 
   // 2. Define a submit handler.
+  function onSubmit(values: CourseSchemaType) {
+    startTransition(async () => {
+      const { data: result, error } = await tryCatch(CreateCourse(values));
+
+      if (error) {
+        toast.error("An unexpected error occurred. Please try again");
+        return;
+      }
+
+      if (result.status === "success") {
+        toast.success(result.message);
+        form.reset();
+        router.push("/admin/courses");
+      } else if (result.status === "error") {
+        toast.error(result.message);
+      }
+    });
+  }
+
   return (
     <>
       <div className="flex items-center gap-4">
@@ -163,11 +186,7 @@ export default function CourseCreationPage() {
                   <FormItem className="w-full">
                     <FormLabel>Thumbnail Image</FormLabel>
                     <FormControl>
-                      <Uploader
-                        onChange={field.onChange}
-                        value={field.value}
-                        fileTypeAccepted="image"
-                      />
+                      <Uploader onChange={field.onChange} value={field.value} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -294,7 +313,7 @@ export default function CourseCreationPage() {
                   </>
                 ) : (
                   <>
-                    Create Course
+                    Create Course 
                     <PlusIcon className="ml-1" size={16} />
                   </>
                 )}
