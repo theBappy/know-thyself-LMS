@@ -1,4 +1,4 @@
-**🌟Know Thyself – Online Course Platform🌟**
+**🌟Know Thyself – Learning Management System🌟**
 
 ---
 
