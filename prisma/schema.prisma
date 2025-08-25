@@ -155,6 +155,11 @@ model Lesson {
   lessonProgress LessonProgress[]
 }
 
+enum EnrollmentStatus {
+  Pending
+  Active
+  Cancelled
+}
 
 model Enrollment {
   id String @id @default(uuid())
@@ -174,11 +179,6 @@ model Enrollment {
   @@unique([userId, courseId])
 }
 
-enum EnrollmentStatus {
-  Pending
-  Active
-  Cancelled
-}
 
 model LessonProgress {
   id String @id @default(ulid())
