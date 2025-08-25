@@ -1,4 +1,4 @@
-**🌟Know Thyself – Online Course Platform🌟**
+**🌟Know Thyself – Learning Management System🌟**
 
 ---
 
@@ -8,7 +8,7 @@ Know Thyself is a modern online learning platform designed to provide a seamless
 
 This platform emphasizes personalization and progress tracking, allowing students to monitor their lesson completion, track learning milestones, and enjoy a highly responsive and visually appealing interface. Instructors and administrators benefit from powerful tools to manage courses, users, and analytics, ensuring efficient operations and enhanced engagement.
 
-With integrated features such as Better-Auth for secure authentication, Arcjet for advanced security, Stripe for seamless payments, S3 file uploads, and a custom rich text editor, Know Thyself is designed to meet the demands of modern online education. Future enhancements are planned to include real-time notifications, AI-driven content suggestions, multi-language support, gamification, and advanced analytics.
+With integrated features such as Better-Auth for secure authentication, Arcjet for advanced security, Stripe for seamless payments, S3(tigris) file uploads, and a custom rich text editor, Know Thyself is designed to meet the demands of modern online education. Future enhancements are planned to include real-time notifications, AI-driven content suggestions, multi-language support, gamification, and advanced analytics.
 
 ---
 
