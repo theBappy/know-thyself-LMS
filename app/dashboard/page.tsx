@@ -2,7 +2,6 @@ import { EmptyState } from "@/components/general/empty-state";
 import { getAllCourses } from "../data/course/get-all-courses";
 import { getEnrolledCourses } from "../data/user/get-enrolled-courses";
 import { PublicCourseCard } from "../(public)/_components/public-course-card";
-import Link from "next/link";
 import { CourseProgressCard } from "./_components/course-progress-card";
 
 export default async function DashboardPage() {

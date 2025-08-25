@@ -16,40 +16,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const dummyEnrollmentsData = [
-  { date: "2025-07-20", enrollments: 489 },
-  { date: "2025-07-21", enrollments: 470 },
-  { date: "2025-07-22", enrollments: 263 },
-  { date: "2025-07-23", enrollments: 221 },
-  { date: "2025-07-24", enrollments: 209 },
-  { date: "2025-07-25", enrollments: 342 },
-  { date: "2025-07-26", enrollments: 188 },
-  { date: "2025-07-27", enrollments: 401 },
-  { date: "2025-07-28", enrollments: 145 },
-  { date: "2025-07-29", enrollments: 232 },
-  { date: "2025-07-30", enrollments: 278 },
-  { date: "2025-07-31", enrollments: 350 },
-  { date: "2025-08-01", enrollments: 490 },
-  { date: "2025-08-02", enrollments: 305 },
-  { date: "2025-08-03", enrollments: 276 },
-  { date: "2025-08-04", enrollments: 199 },
-  { date: "2025-08-05", enrollments: 312 },
-  { date: "2025-08-06", enrollments: 420 },
-  { date: "2025-08-07", enrollments: 154 },
-  { date: "2025-08-08", enrollments: 261 },
-  { date: "2025-08-09", enrollments: 341 },
-  { date: "2025-08-10", enrollments: 205 },
-  { date: "2025-08-11", enrollments: 399 },
-  { date: "2025-08-12", enrollments: 287 },
-  { date: "2025-08-13", enrollments: 452 },
-  { date: "2025-08-14", enrollments: 318 },
-  { date: "2025-08-15", enrollments: 267 },
-  { date: "2025-08-16", enrollments: 356 },
-  { date: "2025-08-17", enrollments: 115 },
-  { date: "2025-08-18", enrollments: 97 },
-  { date: "2025-08-19", enrollments: 137 },
-  { date: "2025-08-20", enrollments: 110 },
-];
+
 
 const chartConfig = {
   enrollments: {

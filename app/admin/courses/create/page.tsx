@@ -40,16 +40,10 @@ import {
 import { RichTextEditor } from "@/components/rich-text-editor/editor";
 import { Uploader } from "@/components/file-uploader/uploader";
 import { useTransition } from "react";
-import { tryCatch } from "@/hooks/try-catch";
-import { CreateCourse } from "./actions";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { useConfetti } from "@/hooks/use-confetti";
+
 
 export default function CourseCreationPage() {
-  const [pending, startTransition] = useTransition();
-  const router = useRouter();
-  const { triggerConfetti } = useConfetti();
+  const [pending] = useTransition();
   // 1. Define form.
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
@@ -68,26 +62,6 @@ export default function CourseCreationPage() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: CourseSchemaType) {
-    startTransition(async () => {
-      const { data: result, error } = await tryCatch(CreateCourse(values));
-
-      if (error) {
-        toast.error("An unexpected error occurred. Please try again");
-        return;
-      }
-
-      if (result.status === "success") {
-        toast.success(result.message);
-        triggerConfetti();
-        form.reset();
-        router.push("/admin/courses");
-      } else if (result.status === "error") {
-        toast.error(result.message);
-      }
-    });
-  }
-
   return (
     <>
       <div className="flex items-center gap-4">

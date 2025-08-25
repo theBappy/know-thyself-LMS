@@ -10,9 +10,7 @@ interface Props {
 export default async function CourseSlugLayout({
   children,
   params,
-}: {
-  Props;
-}) {
+}: Props) {
   const { slug } = await params;
 
   //sever-side security check and lightweight data fetching
