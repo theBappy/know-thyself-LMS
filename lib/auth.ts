@@ -22,6 +22,7 @@ export const auth = betterAuth({
     emailOTP({
       async sendVerificationOTP({ email, otp }) {
         await resend.emails.send({
+          // with onboarding email only can email to the resend logged in user(myself) but if use own domain then can send email to many user instead one
           from: "Know Thyself <onboarding@resend.dev>",
           to: [email],
           subject: "Know Thyself - Verify your email",

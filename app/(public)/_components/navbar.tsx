@@ -18,6 +18,10 @@ const navigationItems = [
     href: "/courses",
   },
   {
+    name: "My Enrolled",
+    href: "/dashboard",
+  },
+  {
     name: "Dashboard",
     href: "/admin",
   },
@@ -35,12 +39,12 @@ export function Navbar() {
         </Link>
         {/* desktop navigation */}
         <nav className="md:flex hidden md:flex-1 md:items-center md:justify-between">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
             {navigationItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium transition-colors hover:text-primary"
+                className="text-sm font-medium transition-colors hover:text-primary hover:underline"
               >
                 {item.name}
               </Link>
