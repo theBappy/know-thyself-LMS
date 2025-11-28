@@ -16,7 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 interface featureProps {
   title: string;
   description: string;
-  icon: JSX.Element;
+  icon: any;
 }
 
 const features: featureProps[] = [
