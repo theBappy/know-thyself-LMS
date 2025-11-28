@@ -46,7 +46,7 @@ function adminAuthMiddleware(request: NextRequest) {
 
   // ⛔ Not admin
   if (!session.user?.isAdmin) {
-    return NextResponse.redirect(new URL("/403", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   // ✅ Admin user → allow access
