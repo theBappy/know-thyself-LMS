@@ -21,19 +21,3 @@ export const requireAdmin = cache(async() => {
   return session;
 });
 
-
-// export async function requireAdmin() {
-//   const session = await auth.api.getSession({
-//     headers: await headers(),
-//   });
-
-//   if (!session) {
-//     return redirect("/login");
-//   }
-
-//   if (session.user.role !== "admin") {
-//     return redirect("/not-admin");
-//   }
-
-//   return session;
-// }

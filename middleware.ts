@@ -2,7 +2,6 @@ import arcjet, { createMiddleware, detectBot } from "@arcjet/next";
 import { env } from "./lib/env";
 import { NextRequest, NextResponse } from "next/server";
 
-// Arcjet bot detection (Edge-safe)
 const aj = arcjet({
   key: env.ARCJET_KEY!,
   rules: [
@@ -18,7 +17,6 @@ const aj = arcjet({
   ],
 });
 
-// Edge-safe middleware
 export default createMiddleware(aj, (request: NextRequest) => {
   return NextResponse.next();
 });

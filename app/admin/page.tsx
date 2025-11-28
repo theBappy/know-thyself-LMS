@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-import { getSession } from "better-auth/server";
 import { SectionCards } from "@/components/section-cards";
 import { adminGetEnrollmentStats } from "../data/admin/admin-get-enrollment-stats";
 import { ChartAreaInteractiveData } from "@/components/chart-area-interactive-data";
@@ -9,13 +7,11 @@ import { adminGetRecentCourses } from "../data/admin/admin-get-recent-courses";
 import { EmptyState } from "@/components/general/empty-state";
 import { AdminCourseCard, AdminCourseCardSkeleton } from "./courses/_components/admin-course-card";
 import { Suspense } from "react";
+import { requireAdmin } from "../data/admin/require-admin";
+
 
 export default async function AdminIndexPage() {
-  // ✅ Server-side session + role check
-  const session = await getSession();
-  if (!session?.user?.isAdmin) {
-    redirect("/"); // Redirect non-admin users
-  }
+  const session = await requireAdmin();
 
   const enrollmentData = await adminGetEnrollmentStats();
 
