@@ -20,12 +20,13 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Loader2Icon } from "lucide-react";
 
-export default function VerifyRequestRoute(){
+export default function VerifyRequestRoute() {
   return (
     <Suspense>
-        <VerifyRequest />
+      {" "}
+      <VerifyRequest />{" "}
     </Suspense>
-  )
+  );
 }
 
 function VerifyRequest() {
@@ -55,15 +56,18 @@ function VerifyRequest() {
   }
 
   return (
-    <Card className="w-full mx-auto">
+    <Card className="w-full max-w-md mx-auto">
+      {" "}
       <CardHeader className="text-center">
-        <CardTitle className="text-xl">Please check your email</CardTitle>
+        {" "}
+        <CardTitle className="text-xl">Please check your email</CardTitle>{" "}
         <CardDescription>
-          We have sent a verification email code to you email address. Please
-          open the email and pasted the code below.
-        </CardDescription>
-      </CardHeader>
+          We have sent a verification email code to your email address. Please
+          open the email and paste the code below.{" "}
+        </CardDescription>{" "}
+      </CardHeader>{" "}
       <CardContent className="space-y-6">
+        {" "}
         <div className="flex flex-col items-center space-y-2">
           <InputOTP
             maxLength={6}
@@ -71,35 +75,36 @@ function VerifyRequest() {
             value={otp}
             onChange={(value) => setOtp(value)}
           >
+            {" "}
             <InputOTPGroup>
-              <InputOTPSlot index={0} />
-              <InputOTPSlot index={1} />
-              <InputOTPSlot index={2} />
-            </InputOTPGroup>
+              {" "}
+              <InputOTPSlot index={0} /> <InputOTPSlot index={1} />{" "}
+              <InputOTPSlot index={2} />{" "}
+            </InputOTPGroup>{" "}
             <InputOTPGroup>
-              <InputOTPSlot index={3} />
-              <InputOTPSlot index={4} />
-              <InputOTPSlot index={5} />
-            </InputOTPGroup>
-          </InputOTP>
+              {" "}
+              <InputOTPSlot index={3} /> <InputOTPSlot index={4} />{" "}
+              <InputOTPSlot index={5} />{" "}
+            </InputOTPGroup>{" "}
+          </InputOTP>{" "}
           <p className="text-sm text-muted-foreground">
-            Enter the 6 digit code sent to your email
-          </p>
+            Enter the 6-digit code sent to your email{" "}
+          </p>{" "}
         </div>
         <Button
-          onClick={verifyOtp || !isOtpCompleted}
-          disabled={emailPending}
+          onClick={() => {
+            if (isOtpCompleted) verifyOtp();
+          }}
+          disabled={emailPending || !isOtpCompleted}
           className="w-full"
         >
           {emailPending ? (
-            <>
-              <Loader2Icon className="size-4 animate-spin" />
-            </>
+            <Loader2Icon className="w-4 h-4 animate-spin mx-auto" />
           ) : (
             "Verify Account"
-          )}
-        </Button>
-      </CardContent>
+          )}{" "}
+        </Button>{" "}
+      </CardContent>{" "}
     </Card>
   );
 }

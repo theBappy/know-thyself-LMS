@@ -49,26 +49,27 @@ export function EditCourseForm({ data }: Props) {
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
-      title: data.title,
-      description: data.description,
-      fileKey: data.fileKey,
-      price: data.price,
-      duration: data.duration,
-      level: data.level,
-      category: data.category as CourseSchemaType["category"],
-      status: data.status,
-      slug: data.slug,
-      smallDescription: data.smallDescription,
+      title: data.title || "",
+      description: data.description || "",
+      fileKey: data.fileKey || "",
+      price: Number(data.price) || 0,
+      duration: Number(data.duration) || 0,
+      level: (data.level as CourseSchemaType["level"]) || "Beginner",
+      category: (data.category as CourseSchemaType["category"]) || courseCategories[0],
+      status: (data.status as CourseSchemaType["status"]) || "Draft",
+      slug: data.slug || "",
+      smallDescription: data.smallDescription || "",
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: CourseSchemaType) {
+  const onSubmit = (values: CourseSchemaType) => {
     startTransition(async () => {
-      const { data: result, error } = await tryCatch(editCourse(values, data.id));
+      const { data: result, error } = await tryCatch(
+        editCourse(values, data.id)
+      );
 
       if (error) {
-        toast.error("An unexpected error occurred. Please try again");
+        toast.error("An unexpected error occurred. Please try again.");
         return;
       }
 
@@ -80,24 +81,29 @@ export function EditCourseForm({ data }: Props) {
         toast.error(result.message);
       }
     });
-  }
+  };
 
   return (
     <Form {...form}>
+      {" "}
       <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+        {/* Title */}
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              {" "}
+              <FormLabel>Title</FormLabel>{" "}
               <FormControl>
-                <Input placeholder="Title" {...field} />
-              </FormControl>
-              <FormMessage />
+                <Input placeholder="Title" {...field} />{" "}
+              </FormControl>{" "}
+              <FormMessage />{" "}
             </FormItem>
           )}
         />
+
+        {/* Slug */}
         <div className="flex gap-4 items-end">
           <FormField
             control={form.control}
@@ -117,23 +123,24 @@ export function EditCourseForm({ data }: Props) {
             className="w-fit"
             onClick={() => {
               const titleValue = form.getValues("title");
-              const slug = slugify(titleValue);
-
+              const slug = slugify(titleValue, { lower: true });
               form.setValue("slug", slug, { shouldValidate: true });
             }}
           >
             Generate Slug <SparkleIcon className="ml-1" size={16} />
           </Button>
         </div>
+
+        {/* Short Description */}
         <FormField
           control={form.control}
           name="smallDescription"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem>
               <FormLabel>Short Description</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="a short description about your course"
+                  placeholder="A short description about your course"
                   {...field}
                   className="min-h-[120px]"
                 />
@@ -142,11 +149,13 @@ export function EditCourseForm({ data }: Props) {
             </FormItem>
           )}
         />
+
+        {/* Full Description */}
         <FormField
           control={form.control}
           name="description"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <RichTextEditor field={field} />
@@ -155,25 +164,33 @@ export function EditCourseForm({ data }: Props) {
             </FormItem>
           )}
         />
+
+        {/* Thumbnail */}
         <FormField
           control={form.control}
           name="fileKey"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem>
               <FormLabel>Thumbnail Image</FormLabel>
               <FormControl>
-                <Uploader fileTypeAccepted="image" onChange={field.onChange} value={field.value} />
+                <Uploader
+                  fileTypeAccepted="image"
+                  value={field.value}
+                  onChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {/* Category, Level, Duration, Price */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="category"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem>
                 <FormLabel>Category</FormLabel>
                 <Select
                   onValueChange={field.onChange}
@@ -196,11 +213,12 @@ export function EditCourseForm({ data }: Props) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="level"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem>
                 <FormLabel>Level</FormLabel>
                 <Select
                   onValueChange={field.onChange}
@@ -223,11 +241,12 @@ export function EditCourseForm({ data }: Props) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="duration"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem>
                 <FormLabel>Duration (hours)</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="Duration" {...field} />
@@ -236,11 +255,12 @@ export function EditCourseForm({ data }: Props) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="price"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem>
                 <FormLabel>Price ($)</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="Price" {...field} />
@@ -250,11 +270,13 @@ export function EditCourseForm({ data }: Props) {
             )}
           />
         </div>
+
+        {/* Status */}
         <FormField
           control={form.control}
           name="status"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem>
               <FormLabel>Status</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
@@ -274,16 +296,22 @@ export function EditCourseForm({ data }: Props) {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={pending}>
+
+        {/* Submit Button */}
+        <Button
+          type="submit"
+          disabled={pending}
+          className="w-full flex items-center justify-center"
+        >
           {pending ? (
             <>
               Updating...
-              <Loader2 className="animate-spin ml-1" />
+              <Loader2 className="animate-spin ml-2" />
             </>
           ) : (
             <>
               Update Course
-              <PlusIcon className="ml-1" size={16} />
+              <PlusIcon className="ml-2" size={16} />
             </>
           )}
         </Button>

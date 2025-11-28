@@ -1,10 +1,9 @@
 
 
+import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-
-
 import {
   Users,
   BookOpen,
@@ -16,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 interface featureProps {
   title: string;
   description: string;
-  icon: any;
+  icon: React.ReactNode;
 }
 
 const features: featureProps[] = [
