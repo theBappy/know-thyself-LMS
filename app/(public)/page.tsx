@@ -47,8 +47,6 @@ const features: featureProps[] = [
 ];
 
 export default function Home() {
-
-
   return (
     <>
       <section className="relative py-20">
