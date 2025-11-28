@@ -47,7 +47,7 @@ export function EditCourseForm({ data }: Props) {
   const router = useRouter();
 
   const form = useForm<CourseSchemaType>({
-    resolver: zodResolver(courseSchema),
+    resolver: zodResolver(courseSchema) as any,
     defaultValues: {
       title: data.title || "",
       description: data.description || "",
