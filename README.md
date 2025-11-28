@@ -48,7 +48,7 @@ With integrated features such as Better-Auth for secure authentication, Arcjet f
 
 **Demo & Screenshots:**
 
-**Live Demo:** [🌐 Visit Here](YOUR_DEPLOY_URL_HERE)
+**Live Demo:** [🌐 Visit Here] https://know-thyself-lms.vercel.app
 
 **Screenshots:**
 
