@@ -14,6 +14,8 @@ With integrated features such as Better-Auth for secure authentication, Arcjet f
 <img width="1024" height="1024" alt="Generated Image November 27, 2025 - 9_44PM" src="https://github.com/user-attachments/assets/9126e6b1-98e3-41b8-b9ba-12e907635f7f" />
 <br>
 
+🌐 https://know-thyself-lms.vercel.app
+
 ---
 
 **Tech Stack & Tools:**
@@ -49,7 +51,7 @@ With integrated features such as Better-Auth for secure authentication, Arcjet f
 **URL & Demo Video:**<br>
 https://github.com/user-attachments/assets/db7f96d4-0cf4-444c-9aa6-4dc8c00c9153
 <br><br>
-🌐 https://know-thyself-lms.vercel.app
+
 
 ---
 
