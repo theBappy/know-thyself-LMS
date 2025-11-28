@@ -1,7 +1,7 @@
+// middleware.ts
 import arcjet, { createMiddleware, detectBot } from "@arcjet/next";
 import { env } from "./lib/env";
 import { NextRequest, NextResponse } from "next/server";
-import { getSessionCookie } from "better-auth/cookies";
 
 const aj = arcjet({
   key: env.ARCJET_KEY!,
@@ -18,8 +18,9 @@ const aj = arcjet({
   ],
 });
 
-async function authMiddleware(request: NextRequest) {
-  const sessionCookie = getSessionCookie(request);
+function authMiddleware(request: NextRequest) {
+  // Edge-safe: check if cookie exists
+  const sessionCookie = request.cookies.get("session")?.value;
 
   if (!sessionCookie) {
     return NextResponse.redirect(new URL("/login", request.url));
@@ -32,7 +33,7 @@ export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico|api/auth).*)"],
 };
 
-export default createMiddleware(aj, async (request: NextRequest) => {
+export default createMiddleware(aj, (request: NextRequest) => {
   if (request.nextUrl.pathname.startsWith("/admin")) {
     return authMiddleware(request);
   }
