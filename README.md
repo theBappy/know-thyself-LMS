@@ -62,6 +62,89 @@ With integrated features such as Better-Auth for secure authentication, Arcjet f
 
 ---
 
+<table>
+  <thead>
+    <tr>
+      <th>Icon</th>
+      <th>Route</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>📡</td>
+      <td>/api/auth/[...all]</td>
+      <td>API Route</td>
+    </tr>
+    <tr>
+      <td>🗑️</td>
+      <td>/api/s3/delete</td>
+      <td>API Route</td>
+    </tr>
+    <tr>
+      <td>⬆️</td>
+      <td>/api/s3/upload</td>
+      <td>API Route</td>
+    </tr>
+    <tr>
+      <td>💳</td>
+      <td>/api/webhook/stripe</td>
+      <td>Webhook</td>
+    </tr>
+    <tr>
+      <td>📚</td>
+      <td>/courses</td>
+      <td>Page</td>
+    </tr>
+    <tr>
+      <td>📘</td>
+      <td>/courses/[slug]</td>
+      <td>Dynamic Page</td>
+    </tr>
+    <tr>
+      <td>📊</td>
+      <td>/dashboard</td>
+      <td>Dashboard</td>
+    </tr>
+    <tr>
+      <td>📁</td>
+      <td>/dashboard/[slug]</td>
+      <td>Dynamic Route</td>
+    </tr>
+    <tr>
+      <td>▶️</td>
+      <td>/dashboard/[slug]/[lessonId]</td>
+      <td>Nested Dynamic Route</td>
+    </tr>
+    <tr>
+      <td>🔐</td>
+      <td>/login</td>
+      <td>Auth Page</td>
+    </tr>
+    <tr>
+      <td>⛔</td>
+      <td>/not-admin</td>
+      <td>Access Page</td>
+    </tr>
+    <tr>
+      <td>❌</td>
+      <td>/payment/cancel</td>
+      <td>Payment Page</td>
+    </tr>
+    <tr>
+      <td>✅</td>
+      <td>/payment/success</td>
+      <td>Payment Page</td>
+    </tr>
+    <tr>
+      <td>📨</td>
+      <td>/verify-request</td>
+      <td>Verification Page</td>
+    </tr>
+  </tbody>
+</table>
+
+
 **Roadmap / Ongoing Development:**
 
 * Real-time notifications for lessons & updates
