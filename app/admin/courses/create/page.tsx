@@ -50,7 +50,7 @@ export default function CourseCreationPage() {
   const router = useRouter();
   // 1. Define form.
   const form = useForm<CourseSchemaType>({
-    resolver: zodResolver(courseSchema),
+    resolver: zodResolver(courseSchema) as any,
     defaultValues: {
       title: "",
       description: "",
@@ -186,7 +186,7 @@ export default function CourseCreationPage() {
                   <FormItem className="w-full">
                     <FormLabel>Thumbnail Image</FormLabel>
                     <FormControl>
-                      <Uploader onChange={field.onChange} value={field.value} />
+                      <Uploader onChange={field.onChange} value={field.value} fileTypeAccepted="image" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
