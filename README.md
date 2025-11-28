@@ -51,8 +51,7 @@ With integrated features such as Better-Auth for secure authentication, Arcjet f
 **URL & Demo Video:**<br>
 https://github.com/user-attachments/assets/db7f96d4-0cf4-444c-9aa6-4dc8c00c9153
 <br><br>
-
-
+https://github.com/user-attachments/assets/e58e7988-bb9e-4e22-acde-103ac07da096
 ---
 
 <table>
