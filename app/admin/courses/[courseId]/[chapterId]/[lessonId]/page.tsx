@@ -10,7 +10,7 @@ export default async function LessonIdPage({
     lessonId: string;
   };
 }) {
-  const { courseId, chapterId, lessonId } = params;
+  const { courseId, chapterId, lessonId } = params as any;
   const lesson = await adminGetLesson(lessonId);
 
   return <LessonForm data={lesson} chapterId={chapterId} courseId={courseId} />;
