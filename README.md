@@ -10,6 +10,10 @@ This platform emphasizes personalization and progress tracking, allowing student
 
 With integrated features such as Better-Auth for secure authentication, Arcjet for advanced security, Stripe for seamless payments, S3(tigris) file uploads, and a custom rich text editor, Know Thyself is designed to meet the demands of modern online education. Future enhancements are planned to include real-time notifications, AI-driven content suggestions, multi-language support, gamification, and advanced analytics.
 
+<br>
+<img width="1024" height="1024" alt="Generated Image November 27, 2025 - 9_44PM" src="https://github.com/user-attachments/assets/9126e6b1-98e3-41b8-b9ba-12e907635f7f" />
+<br>
+
 ---
 
 **Tech Stack & Tools:**
