@@ -1,24 +1,17 @@
-
-
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import {
-  Users,
-  BookOpen,
-  MonitorPlay,
-  BarChart3,
-} from "lucide-react";
+import { Users, BookOpen, MonitorPlay, BarChart3 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface featureProps {
+interface FeatureProps {
   title: string;
   description: string;
-  icon: any;
+  icon: JSX.Element;
 }
 
-const features: featureProps[] = [
+const features: FeatureProps[] = [
   {
     title: "Comprehensive Courses",
     description:
@@ -48,18 +41,22 @@ const features: featureProps[] = [
 export default function Home() {
   return (
     <>
+      {/* HERO SECTION */}
       <section className="relative py-20">
         <div className="flex flex-col items-center text-center space-y-8">
           <Badge variant="outline">
             The Future lies knowing yourself first then learn
           </Badge>
+
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             Elevate Your Learning Experience
           </h1>
+
           <p className="max-w-[700px] text-muted-foreground md:text-xl">
             Discover a new way to learn with modern, interactive learning
-            management system. Access high-quality courses anytime, anywhere
+            management system. Access high-quality courses anytime, anywhere.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
             <Link
               className={buttonVariants({
@@ -69,6 +66,7 @@ export default function Home() {
             >
               Explore courses
             </Link>
+
             <Link
               className={buttonVariants({
                 size: "lg",
@@ -81,11 +79,16 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* FEATURES SECTION */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
         {features.map((feature, index) => (
           <Card key={index} className="hover:shadow-lg transition-shadow">
-            <CardHeader className="text-4xl mb-4">{feature.icon}</CardHeader>
-            <CardTitle className="ml-4">{feature.title}</CardTitle>
+            <CardHeader>
+              <div className="mb-4">{feature.icon}</div>
+              <CardTitle>{feature.title}</CardTitle>
+            </CardHeader>
+
             <CardContent>
               <p className="text-muted-foreground">{feature.description}</p>
             </CardContent>
@@ -95,4 +98,3 @@ export default function Home() {
     </>
   );
 }
-
