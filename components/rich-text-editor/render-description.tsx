@@ -13,7 +13,7 @@ export function RenderDescription({ json }: { json: JSONContent | null }) {
 
     try {
       return generateHTML(json, [
-        StarterKit,
+        StarterKit as any,
         TextAlign.configure({ types: ["heading", "paragraph"] }),
       ]);
     } catch (err) {

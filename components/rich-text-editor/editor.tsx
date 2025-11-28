@@ -18,7 +18,7 @@ export function RichTextEditor({ field }: { field: any }) {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit as any,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Image.configure({ inline: true, allowBase64: true }),
     ],
