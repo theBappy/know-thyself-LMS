@@ -85,10 +85,11 @@ export default function Home() {
         {features.map((feature, index) => (
           <Card key={index} className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <div className="mb-4">{feature.icon}</div>
-              <CardTitle>{feature.title}</CardTitle>
+              <div className="flex flex-col">
+                <div className="mb-4">{feature.icon}</div>
+                <CardTitle>{feature.title}</CardTitle>
+              </div>
             </CardHeader>
-
             <CardContent>
               <p className="text-muted-foreground">{feature.description}</p>
             </CardContent>
